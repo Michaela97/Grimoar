@@ -4,56 +4,65 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float rotationSpeed = 1;
-
     public float movementSpeed = 1;
-    //public float jumpHigh = 1;
-    private bool _onGround;
-    public float high;
-    private Rigidbody _rb;
+    public float jumpHigh = 50;
+    
+    public CharacterController controller;
+    public float gravity = -9.81f;
+    
+    private bool isGrounded;
+    private Vector3 velocity;
 
     void Start()
     {
-        _onGround = true;
-        _rb = GetComponent<Rigidbody>();
+        isGrounded = true;
+      
     }
 
     // Update is called once per frame
     void Update()
     {
+
         Move();
-        Jump();
+        Jump(); //TODO
+       
     }
 
     private void Move()
     {
-        var vertical = Input.GetAxis ("Vertical");
-        if (vertical != 0f ) {
-            transform.Translate (vertical * Vector3.forward * Time.deltaTime * movementSpeed);
-            Debug.Log("vertical " + vertical);
-        }
+ 
+        var z = Input.GetAxis ("Vertical");
+        var x = Input.GetAxis ("Horizontal");
+        Vector3 move = transform.right * x + transform.forward * z;
 
-        var horizontal = Input.GetAxis ("Horizontal");
-        if (horizontal != 0f) {
-            transform.Rotate (Vector3.up, 50f * Time.deltaTime * horizontal * rotationSpeed);
-            Debug.Log("horizontal movement");
-        }
+        controller.Move(move * movementSpeed * Time.deltaTime);
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 
     private void Jump()
     {
-        if (_onGround)
+        if (isGrounded)
         {
             if ( Input.GetButtonDown ("Jump") ) { 
-                transform.Translate (Vector3.up * high);
-                _onGround = false;
+                // transform.Translate (Vector3.up * high);
+                Vector3 jump = transform.up;
+                controller.Move(jump * jumpHigh * Time.deltaTime);
+                Debug.Log("jump");
+                isGrounded = false;
             }
         }
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        other.gameObject.CompareTag("Ground");
-        _onGround = true;
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Collision with ground detected");
+            isGrounded = true;
+        }
+
     }
+    
 }
