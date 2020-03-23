@@ -8,31 +8,33 @@ public class Movement : MonoBehaviour
     public float jumpHigh = 50;
     
     public CharacterController controller;
-    public float gravity = -9.81f;
+    private float gravity = -9.81f;
     
     private bool isGrounded;
     private Vector3 velocity;
 
+    private Animator animator;
+    
+    
+
     void Start()
     {
         isGrounded = true;
-      
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         Move();
         Jump(); //TODO
-       
     }
 
     private void Move()
     {
- 
         var z = Input.GetAxis ("Vertical");
         var x = Input.GetAxis ("Horizontal");
+
         Vector3 move = transform.right * x + transform.forward * z;
 
         controller.Move(move * movementSpeed * Time.deltaTime);
