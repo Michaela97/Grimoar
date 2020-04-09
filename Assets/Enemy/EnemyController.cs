@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public float lookRadius = 15f;
     public Animator animator;
     private int isRunningHash = Animator.StringToHash("IsRunning");
+    private int attackHash = Animator.StringToHash("Attack");
     Transform target;
 
     NavMeshAgent agent;
@@ -27,34 +28,49 @@ public class EnemyController : MonoBehaviour
         
         if (distance <= lookRadius)
         {
-           setAnimation(true);
+           setRunningAnimation(true);
            agent.SetDestination(target.position);
 
-           if (distance <= agent.stoppingDistance + 2)
+           if (distance <= agent.stoppingDistance + 4)
             {
-                agent.SetDestination(transform.position); //find better way how to stop him
-                Debug.Log("distance: "  + distance +  "  / agent stopping distance: " + agent.stoppingDistance);
+                agent.SetDestination(transform.position); 
+                // Debug.Log("distance: "  + distance +  "  / agent stopping distance: " + agent.stoppingDistance);
                 FaceTarget();
-                setAnimation(false);
-                //Attack
+                setRunningAnimation(false);
+                setAttackingAnimation(true);
             }
         }
-        
+        else
+        {
+            setAttackingAnimation(false);
+            setRunningAnimation(false);
+        }
+
     }
 
-    private void setAnimation(bool isRunning)
+    private void setRunningAnimation(bool isRunning)
     {
         if (isRunning)
         {
             animator.SetFloat(isRunningHash, 1);
-            Debug.Log("RUNNING");
         }
         else
         {
             animator.SetFloat(isRunningHash, 0);
-            Debug.Log("NOT RUNNING");
         }
     
+    }
+
+    private void setAttackingAnimation(bool isAttacking)
+    {
+        if (isAttacking)
+        {
+            animator.SetBool(attackHash, true);
+        }
+        else
+        {
+            animator.SetBool(attackHash, false);
+        }
     }
 
     void FaceTarget()
@@ -69,4 +85,20 @@ public class EnemyController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Enemy was hit by player");
+
+        }
+        
+        else if (other.gameObject.CompareTag("Sword"))
+        {
+            Debug.Log("Enemy was hit by sword");
+        }
+
+    }
+    
 }

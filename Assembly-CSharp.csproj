@@ -59,9 +59,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Enemy\EnemyController.cs" />
-     <Compile Include="Assets\Mking\mScripts\MKdemoCtrl.cs" />
-     <Compile Include="Assets\MouseLook.cs" />
-     <Compile Include="Assets\Movement.cs" />
+     <Compile Include="Assets\Enemy\Mking\mScripts\MKdemoCtrl.cs" />
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\Antialiasing.cs" />
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\Bloom.cs" />
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\BloomAndFlares.cs" />
@@ -100,10 +98,11 @@
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\Twirl.cs" />
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
+     <Compile Include="Assets\Player\MouseLook.cs" />
+     <Compile Include="Assets\Player\Movement.cs" />
      <Compile Include="Assets\PlayerManager.cs" />
      <Compile Include="Assets\Rabbits\Demo\Scripts\AnimatorParamatersChange.cs" />
      <Compile Include="Assets\Rabbits\RabitController.cs" />
-     <Compile Include="Assets\SpawnProjectiles.cs" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\Tonemapper.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\GlobalFog.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\VortexEffect.shader" />
@@ -126,7 +125,7 @@
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\ConvertDepth.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\TwirlEffect.shader" />
      <None Include="Assets\NatureStarterKit2\info.txt" />
-     <None Include="Assets\Mking\mLD3DShaders\LD3D_SpecularEmissive.shader" />
+     <None Include="Assets\Enemy\Mking\mLD3DShaders\LD3D_SpecularEmissive.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Apply.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Adaptation.shader" />
@@ -154,7 +153,7 @@
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBloom.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
-     <None Include="Assets\Mking\mLD3DShaders\LD3D_Specular.shader" />
+     <None Include="Assets\Enemy\Mking\mLD3DShaders\LD3D_Specular.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldDX11.shader" />
