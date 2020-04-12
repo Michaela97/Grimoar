@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Enemy\EnemyController.cs" />
+     <Compile Include="Assets\Enemy\EnemyStats.cs" />
      <Compile Include="Assets\Enemy\Mking\mScripts\MKdemoCtrl.cs" />
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\Antialiasing.cs" />
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\Bloom.cs" />
@@ -99,7 +100,8 @@
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
      <Compile Include="Assets\Player\MouseLook.cs" />
-     <Compile Include="Assets\Player\Movement.cs" />
+     <Compile Include="Assets\Player\PlayerCombat.cs" />
+     <Compile Include="Assets\Player\PlayerController.cs" />
      <Compile Include="Assets\PlayerManager.cs" />
      <Compile Include="Assets\Rabbits\Demo\Scripts\AnimatorParamatersChange.cs" />
      <Compile Include="Assets\Rabbits\RabitController.cs" />

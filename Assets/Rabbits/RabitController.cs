@@ -43,7 +43,7 @@ public class RabitController : MonoBehaviour
 
     void RandomRotation() //TODO
     {
-        Debug.Log("PICKING RANDOM ROTATION");
+
         var y = Random.Range(0, 180);
         //transform.Rotate(0f, y, 0f);
         //transform.rotation = Quaternion.Euler(0, y, 0);

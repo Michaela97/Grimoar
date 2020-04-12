@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemy;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,6 +14,7 @@ public class EnemyController : MonoBehaviour
     Transform target;
 
     NavMeshAgent agent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,52 +26,65 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (EnemyStats.EnemyIsDead)
+        {
+            enabled = false;
+            return;
+        }
+
+        FollowPlayer();
+    }
+
+    private void FollowPlayer()
+    {
         float distance = Vector3.Distance(target.position, transform.position);
-        
+
         if (distance <= lookRadius)
         {
-           setRunningAnimation(true);
-           agent.SetDestination(target.position);
+            SetRunningAnimation(true);
+            agent.SetDestination(target.position);
 
-           if (distance <= agent.stoppingDistance + 4)
+            if (distance <= agent.stoppingDistance + 4)
             {
-                agent.SetDestination(transform.position); 
-                // Debug.Log("distance: "  + distance +  "  / agent stopping distance: " + agent.stoppingDistance);
+                agent.SetDestination(transform.position);
                 FaceTarget();
-                setRunningAnimation(false);
-                setAttackingAnimation(true);
+                
+                SetRunningAnimation(false);
+                SetAttackingAnimation(true);
             }
         }
         else
         {
-            setAttackingAnimation(false);
-            setRunningAnimation(false);
+            SetAttackingAnimation(false);
+            SetRunningAnimation(false);
         }
-
     }
 
-    private void setRunningAnimation(bool isRunning)
+    private void SetRunningAnimation(bool isRunning)
     {
-        if (isRunning)
         {
-            animator.SetFloat(isRunningHash, 1);
+            if (isRunning)
+            {
+                animator.SetFloat(isRunningHash, 1);
+            }
+            else
+            {
+                animator.SetFloat(isRunningHash, 0);
+            }
         }
-        else
-        {
-            animator.SetFloat(isRunningHash, 0);
-        }
-    
     }
 
-    private void setAttackingAnimation(bool isAttacking)
+    private void SetAttackingAnimation(bool isAttacking)
     {
-        if (isAttacking)
         {
-            animator.SetBool(attackHash, true);
-        }
-        else
-        {
-            animator.SetBool(attackHash, false);
+            if (isAttacking)
+            {
+                animator.SetBool(attackHash, true);
+            }
+            else
+            {
+                animator.SetBool(attackHash, false);
+            }
         }
     }
 
@@ -80,25 +95,10 @@ public class EnemyController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
+    //radius around enemy 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Enemy was hit by player");
-
-        }
-        
-        else if (other.gameObject.CompareTag("Sword"))
-        {
-            Debug.Log("Enemy was hit by sword");
-        }
-
-    }
-    
 }
