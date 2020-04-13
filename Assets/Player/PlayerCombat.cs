@@ -5,24 +5,24 @@ namespace Player
 {
     public class PlayerCombat : MonoBehaviour
     {
-        public float health = 100;
         public static bool IsAttacking;
-        public static bool PlayerIsDead;
         
         private int attackHash = Animator.StringToHash("Attack");
         private int deadHash = Animator.StringToHash("Dead");
 
         private PlayerController _playerController;
+        private PlayerStats _playerStats;
         
         public Animator animator;
-        // Start is called before the first frame update
+        
         void Start()
         {
             animator = GetComponent<Animator>();
             _playerController = GetComponent<PlayerController>();
+            _playerStats = gameObject.AddComponent<PlayerStats>();
         }
 
-        // Update is called once per frame
+    
         void Update()
         {
             Attack();
@@ -47,9 +47,8 @@ namespace Player
 
         private void Die()
         {
-            if (health == 0f)
+            if (_playerStats.GetCurrentHealth() == 0)
             {
-                PlayerIsDead = true;
                 Debug.Log("Player is dead");
                 animator.SetBool(deadHash, true);
                 //Destroy(gameObject, 3);
@@ -62,8 +61,9 @@ namespace Player
         {
             if (other.gameObject.CompareTag("EnemyHands"))
             {
-                Debug.Log("TRIGGER: Player was hit by enemy");
-                health -= 10f;
+                Debug.Log("Player was hit by enemy");
+                _playerStats.TakeDamage(20);
+                
             }
             
         }

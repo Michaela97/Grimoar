@@ -15,6 +15,9 @@ namespace Player
 
         public Animator animator;
         private int isRunningHash = Animator.StringToHash("Speed");
+        private AudioManager _audioManager;
+        
+        private int i = 0;
         
 
         void Start()
@@ -22,16 +25,17 @@ namespace Player
             isGrounded = true;
             animator = GetComponent<Animator>();
             controller = GetComponent<CharacterController>();
+            _audioManager = FindObjectOfType<AudioManager>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            // if (!PlayerCombat.PlayerIsDead) -- not working 
+            // if (!PlayerCombat.PlayerIsDead) 
             // {
                 Move();
                 Jump(); //TODO
-           // }
+          // }
             
         }
 
@@ -41,34 +45,28 @@ namespace Player
             var x = Input.GetAxis("Horizontal");
 
             Vector3 move = transform.right * x + transform.forward * z;
-            
+
             controller.Move(move * movementSpeed * Time.deltaTime);
             
             velocity.y += gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
 
-            SetRunningAnimation(z, x);
+            SetRunningAnimation(move.magnitude);
         }
 
-        private void SetRunningAnimation(float z, float x)
+        private void SetRunningAnimation(float magnitude)
         {
-            float value;
-
-            if (z == 1f && x == -1f) // when movement is forward and left 
+            animator.SetFloat(isRunningHash, magnitude);
+    
+            if (magnitude>0)
             {
-                value = 1f;
+                _audioManager.Play("PlayerFootSteps");
+                i++;
             }
             else
             {
-                value = z + x;
-            
-                if (value < 0f)
-                {
-                    value = -1 * value;
-                }
+                _audioManager.Stop("PlayerFootSteps");
             }
-        
-            animator.SetFloat(isRunningHash, value);
         }
 
         private void Jump()
