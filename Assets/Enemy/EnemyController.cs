@@ -14,6 +14,9 @@ public class EnemyController : MonoBehaviour
     Transform target;
 
     NavMeshAgent agent;
+    
+    private AudioManager _audioManager;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +24,8 @@ public class EnemyController : MonoBehaviour
         target = PlayerManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        _audioManager = FindObjectOfType<AudioManager>();
+        //_audioManager = gameObject.AddComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -66,10 +71,12 @@ public class EnemyController : MonoBehaviour
             if (isRunning)
             {
                 animator.SetFloat(isRunningHash, 1);
+                _audioManager.Play("EnemyFootSteps");
             }
             else
             {
                 animator.SetFloat(isRunningHash, 0);
+                _audioManager.Stop("EnemyFootSteps");
             }
         }
     }

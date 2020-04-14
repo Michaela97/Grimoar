@@ -1,12 +1,13 @@
 ﻿
 using System;
+using Player;
 using UnityEngine;
 using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
-    public bool isPlaying = false;
+    private int i = 0;
     
     void Awake()
     {
@@ -17,28 +18,35 @@ public class AudioManager : MonoBehaviour
 
             sound.source.volume = sound.volume;
             sound.source.pitch = sound.pitch;
+            
         }
     }
 
     private void Start()
     {
-        //theme which will be playing in backgorund
+        Play("Skellig");
     }
 
     public void Play(string name)
     {
         var s = Array.Find(sounds, sound => sound.name == name);
-        if (!isPlaying)
+        
+        if (!s.IsPlaying)
         {
             s.source.Play();
-            isPlaying = true;
+            s.IsPlaying= true;
+            i++;
         }
     }
     
     public void Stop(string name)
     {
         var s = Array.Find(sounds, sound => sound.name == name);
-        s.source.Stop();
-        isPlaying = false;
+        if (s.IsPlaying)
+        {
+            s.source.Stop();
+            s.IsPlaying = false;
+        }
+       
     }
 }
