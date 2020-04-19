@@ -9,7 +9,8 @@
       <e p="Assets" t="Include">
         <e p="AudioManager.cs" t="Include" />
         <e p="Enemy" t="Include">
-          <e p="EnemyController.cs" t="Include" />
+          <e p="EnemyAnimHash.cs" t="Include" />
+          <e p="EnemyCombat.cs" t="Include" />
           <e p="EnemyStats.cs" t="Include" />
           <e p="Mking" t="Include">
             <e p="mLD3DShaders" t="Include">

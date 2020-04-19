@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Player;
 using UnityEngine;
 
@@ -9,7 +10,6 @@ namespace Enemy
     {
         public float health = 100;
         public Animator animator;
-        private int isDeadHash = Animator.StringToHash("IsDead");
         public static bool EnemyIsDead;
 
         private void Start()
@@ -23,11 +23,22 @@ namespace Enemy
             {
                 if (PlayerCombat.IsAttacking)
                 {
-                    health -= 10f;
+                    SetHitAnimation();
+                    TakeDamage(10f);
                     Debug.Log("Enemy health = " + health);
                     Die();
                 }
             }
+        }
+
+        private void SetHitAnimation()
+        {
+            animator.SetTrigger(EnemyAnimHash.IsHitHash);
+        }
+
+        private void TakeDamage(float dmg)
+        {
+            health -= dmg;
         }
 
         private void Die()
@@ -36,7 +47,7 @@ namespace Enemy
             {
                 EnemyIsDead = true;
 
-                animator.SetBool(isDeadHash, true);
+                animator.SetBool(EnemyAnimHash.IsDeadHash, true);
                 Destroy(gameObject, 3);
                 enabled = false;
             }

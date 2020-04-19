@@ -7,8 +7,7 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
-    private int i = 0;
-    
+
     void Awake()
     {
         foreach (var sound in sounds)
@@ -24,29 +23,43 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        Play("Skellig");
+       // Play("Skellig");
     }
 
     public void Play(string name)
     {
         var s = Array.Find(sounds, sound => sound.name == name);
-        
-        if (!s.IsPlaying)
+
+        try
         {
-            s.source.Play();
-            s.IsPlaying= true;
-            i++;
+            if (!s.IsPlaying)
+            {
+                s.source.Play();
+                s.IsPlaying= true;
+            }
         }
+        catch (NullReferenceException e)
+        {
+            Debug.Log("There is no audio with name:" + name);
+        }
+        
     }
     
     public void Stop(string name)
     {
         var s = Array.Find(sounds, sound => sound.name == name);
-        if (s.IsPlaying)
+
+        try
         {
-            s.source.Stop();
-            s.IsPlaying = false;
+            if (s.IsPlaying)
+            {
+                s.source.Stop();
+                s.IsPlaying = false;
+            }
         }
-       
+        catch (NullReferenceException e)
+        {
+            Debug.Log("There is no audio with name:" + name);
+        }
     }
 }
