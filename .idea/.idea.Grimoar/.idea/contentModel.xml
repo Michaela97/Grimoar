@@ -201,6 +201,12 @@
           <e p="PlayerStats.cs" t="Include" />
         </e>
         <e p="PlayerManager.cs" t="Include" />
+        <e p="Potions" t="Include">
+          <e p="PotionController.cs" t="Include" />
+        </e>
+        <e p="PotionSpawner" t="Include">
+          <e p="PotionSpawner.cs" t="Include" />
+        </e>
         <e p="Rabbits" t="Include">
           <e p="Demo" t="Include">
             <e p="Scripts" t="Include">

@@ -5,8 +5,9 @@ namespace Player
 {
     public class PlayerStats : MonoBehaviour
     {
-        public int maxHealth = 100;
-        private int currentHealth;
+        public int maxHealth = 50;
+        private static int currentHealth;
+        private static int i = 0;
 
         public PlayerHealthBar healthBar;
 
@@ -31,6 +32,16 @@ namespace Player
         {
             return currentHealth;
        
+        }
+
+        public void AddHealth()
+        {
+            Debug.Log("Before Current health: " + currentHealth + " / no, of calls: " + i);
+
+            currentHealth += 10;
+            healthBar.SetHealth(currentHealth);
+            Debug.Log("Player took the potion. Current health: " + currentHealth + " / no, of calls: " + i);
+            i += 1;
         }
     }
 }

@@ -16,7 +16,7 @@ public class RabitController : MonoBehaviour
     [SerializeField]
     private int maxWaitTime = 10;
     private Vector3 newPosition;
-    public Transform rabbitBody;
+    public Transform transform;
 
     private Animator _animator;
     private int speedHash = Animator.StringToHash("Speed");
@@ -31,6 +31,8 @@ public class RabitController : MonoBehaviour
 
     void PickPosition()
     {
+        RandomRotation();
+        
         var currentPosition = gameObject.transform.position;
 
         var x = Random.Range(-randomX, randomX);
@@ -41,17 +43,14 @@ public class RabitController : MonoBehaviour
         StartCoroutine(MoveToRandomPos());
     }
 
-    void RandomRotation() //TODO
+    void RandomRotation() 
     {
 
-        var y = Random.Range(0, 180);
-        //transform.Rotate(0f, y, 0f);
-        //transform.rotation = Quaternion.Euler(0, y, 0);
-        //transform.localRotation = Quaternion.Euler(0f, y, 0f); 
-        //rabbitBody.Rotate(Vector3.right * 2 * Time.deltaTime, Space.Self);
-        //Debug.Log("Rotation value: "  + y);
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(0, y, 0));
-        rabbitBody.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        var y = Random.Range(0f, 180f);
+
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(0,y, 0));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+
     }
 
     IEnumerator MoveToRandomPos()
@@ -77,7 +76,6 @@ public class RabitController : MonoBehaviour
             _animator.SetFloat(speedHash, 0);
             yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
             
-            RandomRotation();
             PickPosition();
         }
     

@@ -107,6 +107,8 @@
      <Compile Include="Assets\Player\PlayerController.cs" />
      <Compile Include="Assets\Player\PlayerStats.cs" />
      <Compile Include="Assets\PlayerManager.cs" />
+     <Compile Include="Assets\PotionSpawner\PotionSpawner.cs" />
+     <Compile Include="Assets\Potions\PotionController.cs" />
      <Compile Include="Assets\Rabbits\Demo\Scripts\AnimatorParamatersChange.cs" />
      <Compile Include="Assets\Rabbits\RabitController.cs" />
      <Compile Include="Assets\Sound.cs" />

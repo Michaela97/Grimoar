@@ -58,7 +58,6 @@ namespace Player
                 animator.SetBool(attackHash, false);
                 animator.SetTrigger(deadHash);
                 IsDead = true;
-                //Destroy(gameObject, 3);
                 enabled = false;
                 //_playerController.enabled = false;
             }
