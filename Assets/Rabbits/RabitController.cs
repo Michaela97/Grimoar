@@ -5,78 +5,61 @@ using UnityEngine;
 
 public class RabitController : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 1;
-    [SerializeField]
-    private float randomX;
-    [SerializeField]
-    private float randomZ;
-    [SerializeField]
-    private float minWaitTime = 2;
-    [SerializeField]
-    private int maxWaitTime = 10;
-    private Vector3 newPosition;
-    public Transform transform;
+    [SerializeField] private float randomX = 25;
+    [SerializeField] private float randomZ = 25;
+    [SerializeField] private float minWaitTime = 2;
+    [SerializeField] private int maxWaitTime = 10;
+    private Vector3 _newPosition;
 
     private Animator _animator;
     private int speedHash = Animator.StringToHash("Speed");
-    
-    // Start is called before the first frame update
+
+
     void Start()
     {
         _animator = GetComponent<Animator>();
+
         
-        PickPosition();
+        StartCoroutine(PickPosition());
     }
 
-    void PickPosition()
+    IEnumerator PickPosition()
     {
-        RandomRotation();
-        
-        var currentPosition = gameObject.transform.position;
-
         var x = Random.Range(-randomX, randomX);
         var z = Random.Range(-randomZ, randomZ);
- 
-        newPosition = new Vector3(currentPosition.x + x, 0, currentPosition.z + z);
-  
+
+        _newPosition = new Vector3( x, 0.23f,  z);
+
+        // Quaternion lookRotation = Quaternion.LookRotation(new Vector3(_newPosition.x, _newPosition.y, _newPosition.z));
+        // transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        
+      //  transform.Rotate(_newPosition);
+
+        
         StartCoroutine(MoveToRandomPos());
-    }
-
-    void RandomRotation() 
-    {
-
-        var y = Random.Range(0f, 180f);
-
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(0,y, 0));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-
+        
+        yield return null;
     }
 
     IEnumerator MoveToRandomPos()
     {
-        var i = 0.0f;
-        var rate = 1.0f / speed;
         _animator.SetFloat(speedHash, 1);
         
-        var walkingTime = Random.Range(2.0f, 8.0f);
-        
-        while (i < walkingTime)
-        {
-            i += Time.deltaTime * rate;
-            transform.forward = newPosition * i;
-            yield return null;
-        }
-        
+        transform.Translate(_newPosition);
+
+        yield return new WaitForSeconds(5);
+
         StartCoroutine(WaitForSomeTime());
     }
-    
+
     IEnumerator WaitForSomeTime()
-        {
-            _animator.SetFloat(speedHash, 0);
-            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
-            
-            PickPosition();
-        }
-    
+    {
+        var time = Random.Range(minWaitTime, maxWaitTime);
+        
+        _animator.SetFloat(speedHash, 0);
+
+        yield return new WaitForSeconds(time);
+
+        StartCoroutine(PickPosition());
+    }
 }

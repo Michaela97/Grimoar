@@ -7,24 +7,19 @@ namespace Player
     public class PlayerCombat : MonoBehaviour
     {
         public static bool IsAttacking;
-        public static bool IsDead = false;
+        public static bool IsDead;
         
         private int attackHash = Animator.StringToHash("Attack");
         private int deadHash = Animator.StringToHash("IsDead");
-
-        private PlayerController _playerController;
+        
         private PlayerStats _playerStats;
         
         public Animator animator;
 
-        public Rigidbody rb;
-        
         void Start()
         {
             animator = GetComponent<Animator>();
-            _playerController = GetComponent<PlayerController>();
             _playerStats = gameObject.AddComponent<PlayerStats>();
-            rb = GetComponent<Rigidbody>();
         }
 
     
@@ -59,7 +54,6 @@ namespace Player
                 animator.SetTrigger(deadHash);
                 IsDead = true;
                 enabled = false;
-                //_playerController.enabled = false;
             }
         }
 
@@ -70,7 +64,7 @@ namespace Player
                 if (EnemyCombat.EnemyIsAttacking)
                 {
                     Debug.Log("Player was hit by enemy hands");
-                    _playerStats.TakeDamage(10); //10
+                    _playerStats.TakeDamage(10); 
                 }
 
             }
