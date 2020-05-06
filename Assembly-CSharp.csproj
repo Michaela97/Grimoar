@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\AudioManager.cs" />
+     <Compile Include="Assets\DragonController.cs" />
      <Compile Include="Assets\Enemy\EnemyAnimHash.cs" />
      <Compile Include="Assets\Enemy\EnemyCombat.cs" />
      <Compile Include="Assets\Enemy\EnemyStats.cs" />

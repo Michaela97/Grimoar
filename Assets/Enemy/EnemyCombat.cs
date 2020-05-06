@@ -58,6 +58,8 @@ namespace Enemy
             {
                 SetRunningAnimation(true, _agent.velocity.magnitude);
                 _agent.SetDestination(_target.position);
+                
+                
 
                 if (distance <= _agent.stoppingDistance + 4)
                 {
