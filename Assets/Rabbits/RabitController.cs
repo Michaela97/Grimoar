@@ -1,65 +1,52 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class RabitController : MonoBehaviour
 {
-    [SerializeField] private float randomX = 25;
-    [SerializeField] private float randomZ = 25;
-    [SerializeField] private float minWaitTime = 2;
-    [SerializeField] private int maxWaitTime = 10;
-    private Vector3 _newPosition;
+    [Range(5,10)]
+    [SerializeField]
+    private float wanderRadius;
+    [Range(3,6)]
+    [SerializeField]
+    private float wanderTimer;
+    [SerializeField]
+    private NavMeshAgent agent;
+    private float _timer;
 
     private Animator _animator;
-    private int speedHash = Animator.StringToHash("Speed");
+    private readonly int _speedHash = Animator.StringToHash("Speed");
+    private Vector3 _newPos;
 
 
     void Start()
     {
         _animator = GetComponent<Animator>();
-
-        
-        StartCoroutine(PickPosition());
+        StartCoroutine(GetNewPosition());
     }
 
-    IEnumerator PickPosition()
+    private void Update()
+    { 
+        _timer += Time.deltaTime;
+        
+        if (_timer >= wanderTimer) {
+            agent.SetDestination(_newPos);
+        }
+        _animator.SetFloat(_speedHash, agent.velocity.magnitude);
+    }
+
+    private IEnumerator GetNewPosition()
     {
-        var x = Random.Range(-randomX, randomX);
-        var z = Random.Range(-randomZ, randomZ);
-
-        _newPosition = new Vector3( x, 0.23f,  z);
-
-        // Quaternion lookRotation = Quaternion.LookRotation(new Vector3(_newPosition.x, _newPosition.y, _newPosition.z));
-        // transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-        
-      //  transform.Rotate(_newPosition);
-
-        
-        StartCoroutine(MoveToRandomPos());
-        
-        yield return null;
+        while (true)
+        {
+            _newPos = AgentRandomMovement.RandomNavSphere(transform.position, wanderRadius, -1);
+            yield return new WaitForSeconds(5);
+        }
     }
 
-    IEnumerator MoveToRandomPos()
-    {
-        _animator.SetFloat(speedHash, 1);
-        
-        transform.Translate(_newPosition);
 
-        yield return new WaitForSeconds(5);
-
-        StartCoroutine(WaitForSomeTime());
-    }
-
-    IEnumerator WaitForSomeTime()
-    {
-        var time = Random.Range(minWaitTime, maxWaitTime);
-        
-        _animator.SetFloat(speedHash, 0);
-
-        yield return new WaitForSeconds(time);
-
-        StartCoroutine(PickPosition());
-    }
 }

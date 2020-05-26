@@ -5,7 +5,8 @@ namespace Player
 {
     public class PlayerStats : MonoBehaviour
     {
-        public int maxHealth = 100;
+        [SerializeField]
+        private int maxHealth = 100;
         private static int currentHealth;
 
         public PlayerHealthBar healthBar;
@@ -31,7 +32,6 @@ namespace Player
         public int GetCurrentHealth()
         {
             return currentHealth;
-       
         }
 
         public void AddHealth()

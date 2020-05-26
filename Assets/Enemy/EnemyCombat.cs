@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
-using Boo.Lang;
+﻿using System.Collections;
 using Player;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
-
 
 namespace Enemy
 {
@@ -22,8 +19,10 @@ namespace Enemy
         public static bool EnemyIsAttacking;
 
         private int _currentAttackType;
+
         private delegate void AttackDelegate();
-        private AttackDelegate _attackDelegate;
+
+        private static event AttackDelegate AttackAction;
 
         // Start is called before the first frame update
         void Start()
@@ -33,21 +32,17 @@ namespace Enemy
             animator = GetComponent<Animator>();
             _audioManager = FindObjectOfType<AudioManager>();
 
-            _attackDelegate += IsDead;
+            //GetRandomAttack();
+            StartCoroutine(GetRandomAttack());
         }
 
-        private void FixedUpdate() //every 2 seconds 
-        {
-            if (!EnemyIsAttacking)
-            {
-                _currentAttackType = GetRandomAttack();
-            }
-        }
 
         // Update is called once per frame
         void Update()
         {
             FollowPlayer();
+            IsDead(); //disable script if its dead
+            AttackAction?.Invoke();
         }
 
         private void FollowPlayer()
@@ -58,39 +53,37 @@ namespace Enemy
             {
                 SetRunningAnimation(true, _agent.velocity.magnitude);
                 _agent.SetDestination(_target.position);
-                
-                
 
                 if (distance <= _agent.stoppingDistance + 4)
                 {
                     _agent.SetDestination(transform.position);
-                    _attackDelegate += PerformAttack;
-                    _attackDelegate += FaceTarget;
-                    _attackDelegate?.Invoke();
+                    AttackAction += PerformAttack;
+                    AttackAction += FaceTarget;
                 }
             }
             else
             {
-                if (_attackDelegate != null)
+                if (AttackAction != null)
                 {
-                    _attackDelegate -= PerformAttack;
-                    _attackDelegate -= FaceTarget;
-                    _attackDelegate += StopAttacking;
-                    _attackDelegate?.Invoke();
+                    AttackAction -= PerformAttack;
+                    AttackAction -= FaceTarget;
+                    AttackAction += StopAttack;
                 }
             }
         }
 
         private void PerformAttack()
         {
+            EnemyIsAttacking = true;
             _agent.SetDestination(transform.position);
-
+            
             SetRunningAnimation(false, _agent.velocity.magnitude);
             SetAttackingAnimation(true);
         }
 
-        private void StopAttacking()
+        private void StopAttack()
         {
+            EnemyIsAttacking = false;
             SetRunningAnimation(false, _agent.velocity.magnitude);
             SetAttackingAnimation(false);
         }
@@ -134,33 +127,34 @@ namespace Enemy
                     EnemyIsAttacking = false;
                 }
             }
+            
         }
 
-        private int GetRandomAttack()
+        private IEnumerator GetRandomAttack()
         {
-            var value = Random.Range(0, 3);
-
-            if (value == 0)
+            while (true)
             {
-                AttackingWithFoot = false;
-                return EnemyAnimHash.StabHash;
+                var value = Random.Range(0, 3);
+        
+                switch (value)
+                {
+                    case 0:
+                        AttackingWithFoot = false;
+                        _currentAttackType = EnemyAnimHash.StabHash;
+                        break;
+                    case 1:
+                        AttackingWithFoot = true;
+                        _currentAttackType = EnemyAnimHash.ComboKickHash;
+                        break;
+                    case 2:
+                        AttackingWithFoot = false;
+                        _currentAttackType = EnemyAnimHash.QuickSwipeHash;
+                        break;
+                }
+                yield return new WaitForSeconds(3);
             }
-
-            if (value == 1)
-            {
-                AttackingWithFoot = true;
-                return EnemyAnimHash.ComboKickHash;
-            }
-
-            if (value == 2)
-            {
-                AttackingWithFoot = false;
-                return EnemyAnimHash.QuickSwipeHash;
-            }
-
-            //default
-            return EnemyAnimHash.StabHash;
         }
+        
 
         private void FaceTarget()
         {

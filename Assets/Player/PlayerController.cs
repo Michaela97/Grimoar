@@ -1,42 +1,33 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-        public float movementSpeed = 1;
-        public float jumpHigh = 50;
+        [SerializeField] private float movementSpeed;
+        [SerializeField] private float jumpHigh;
+        [SerializeField] private CharacterController controller;
+        [SerializeField] private Animator animator;
 
-        public CharacterController controller;
         private float gravity = -9.81f;
+        private bool _isGrounded;
+        private Vector3 _velocity;
 
-        private bool isGrounded;
-        private Vector3 velocity;
-
-        public Animator animator;
-        private int isRunningHash = Animator.StringToHash("Speed");
         private AudioManager _audioManager;
-        
-        private int i = 0;
-        
 
         void Start()
         {
-            isGrounded = true;
+            _isGrounded = true;
             animator = GetComponent<Animator>();
             controller = GetComponent<CharacterController>();
             _audioManager = FindObjectOfType<AudioManager>();
         }
 
-        // Update is called once per frame
         void Update()
         {
-            // if (!PlayerCombat.PlayerIsDead) 
-            // {
-                Move();
-                Jump(); //TODO
-          // }
-            
+            Move();
+            Jump();
         }
 
         private void Move()
@@ -44,24 +35,23 @@ namespace Player
             var z = Input.GetAxis("Vertical");
             var x = Input.GetAxis("Horizontal");
 
-            Vector3 move = transform.right * x + transform.forward * z;
+            var move = transform.right * x + transform.forward * z;
 
             controller.Move(move * movementSpeed * Time.deltaTime);
-            
-            velocity.y += gravity * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
+
+            _velocity.y += gravity * Time.deltaTime;
+            controller.Move(_velocity * Time.deltaTime);
 
             SetRunningAnimation(move.magnitude);
         }
 
         private void SetRunningAnimation(float magnitude)
         {
-            animator.SetFloat(isRunningHash, magnitude);
-    
-            if (magnitude>0)
+            animator.SetFloat(PlayerAnimHash.isRunningHash, magnitude);
+
+            if (magnitude > 0)
             {
                 _audioManager.Play("PlayerFootSteps");
-                i++;
             }
             else
             {
@@ -71,18 +61,20 @@ namespace Player
 
         private void Jump()
         {
-            if (isGrounded)
+            if (_isGrounded && Input.GetButtonDown("Jump"))
             {
-                if (Input.GetButtonDown("Jump"))
-                {
-                    // transform.Translate (Vector3.up * high);
-                    Vector3 jump = transform.up;
-                    controller.Move(jump * jumpHigh * Time.deltaTime);
-                    Debug.Log("jump");
-                    isGrounded = false;
-                }
+                controller.Move(Vector3.up * jumpHigh * Time.deltaTime);
+                _isGrounded = false;
             }
         }
-        
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                _isGrounded = true;
+                Debug.Log("Trigger with ground detected");
+            }
+        }
     }
 }

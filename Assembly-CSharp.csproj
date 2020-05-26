@@ -58,8 +58,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\AgentRandomMovement.cs" />
      <Compile Include="Assets\AudioManager.cs" />
-     <Compile Include="Assets\DragonController.cs" />
+     <Compile Include="Assets\Dragon\DragonController.cs" />
      <Compile Include="Assets\Enemy\EnemyAnimHash.cs" />
      <Compile Include="Assets\Enemy\EnemyCombat.cs" />
      <Compile Include="Assets\Enemy\EnemyStats.cs" />
@@ -105,6 +106,7 @@
      <Compile Include="Assets\HealthBar\PlayerHealthBar.cs" />
      <Compile Include="Assets\MainMenu.cs" />
      <Compile Include="Assets\Player\MouseLook.cs" />
+     <Compile Include="Assets\Player\PlayerAnimHash.cs" />
      <Compile Include="Assets\Player\PlayerCombat.cs" />
      <Compile Include="Assets\Player\PlayerController.cs" />
      <Compile Include="Assets\Player\PlayerStats.cs" />
