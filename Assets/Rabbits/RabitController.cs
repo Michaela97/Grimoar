@@ -26,27 +26,19 @@ public class RabitController : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
-        StartCoroutine(GetNewPosition());
     }
 
     private void Update()
-    { 
+    {
         _timer += Time.deltaTime;
-        
+ 
         if (_timer >= wanderTimer) {
-            agent.SetDestination(_newPos);
+            Vector3 newPos = AgentRandomMovement.RandomNavSphere(transform.position, wanderRadius, -1);
+            agent.SetDestination(newPos);
+            _timer = 0;
         }
+        
         _animator.SetFloat(_speedHash, agent.velocity.magnitude);
     }
-
-    private IEnumerator GetNewPosition()
-    {
-        while (true)
-        {
-            _newPos = AgentRandomMovement.RandomNavSphere(transform.position, wanderRadius, -1);
-            yield return new WaitForSeconds(5);
-        }
-    }
-
 
 }

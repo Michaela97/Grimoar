@@ -1,8 +1,5 @@
-﻿
-using System;
-using Player;
+﻿using System;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -13,17 +10,16 @@ public class AudioManager : MonoBehaviour
         foreach (var sound in sounds)
         {
             sound.source = gameObject.AddComponent<AudioSource>();
+            
             sound.source.clip = sound.clip;
-
             sound.source.volume = sound.volume;
-            sound.source.pitch = sound.pitch;
             sound.source.loop = sound.loop;
         }
     }
 
     private void Start()
     {
-       // Play("Skellig");
+        Play("Skellig");
     }
 
     public void Play(string name)
@@ -35,16 +31,15 @@ public class AudioManager : MonoBehaviour
             if (!s.IsPlaying)
             {
                 s.source.Play();
-                s.IsPlaying= true;
+                s.IsPlaying = true;
             }
         }
         catch (NullReferenceException e)
         {
             Debug.Log("There is no audio with name:" + name);
         }
-        
     }
-    
+
     public void Stop(string name)
     {
         var s = Array.Find(sounds, sound => sound.name == name);
@@ -56,6 +51,20 @@ public class AudioManager : MonoBehaviour
                 s.source.Stop();
                 s.IsPlaying = false;
             }
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.Log("There is no audio with name:" + name);
+        }
+    }
+
+    public void PlayOnce(string name)
+    {
+        var s = Array.Find(sounds, sound => sound.name == name);
+
+        try
+        {
+            s.source.Play();
         }
         catch (NullReferenceException e)
         {

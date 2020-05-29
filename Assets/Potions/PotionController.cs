@@ -7,6 +7,7 @@ using UnityEngine;
 public class PotionController : MonoBehaviour
 {
     private PlayerStats _playerStats;
+    
 
     private void Start()
     {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿
 using Enemy;
 using UnityEngine;
 
@@ -9,33 +8,49 @@ namespace Player
     {
         public static bool IsAttacking;
         public static bool IsDead;
+        public static bool IsHit;
         
         private PlayerStats _playerStats;
         [SerializeField]
         private Animator animator;
-        public delegate void DieEvent();
-        public static event DieEvent hasDied;
-
+        private AudioManager _audioManager;
+        public delegate void OnDiedEvent();
+        public delegate void TakeDamageEvent(int damage);
+        public static event OnDiedEvent hasDied;
+        public static event TakeDamageEvent takeDmg;
+        
         private PlayerController _playerController;
 
         void Start()
         {
             animator = GetComponent<Animator>();
-            _playerStats = gameObject.AddComponent<PlayerStats>();
+            
+            _playerStats = FindObjectOfType<PlayerStats>();
             _playerController = FindObjectOfType<PlayerController>();
+            _audioManager = FindObjectOfType<AudioManager>();
             
             hasDied += SetDyingAnimation;
             hasDied += DisableScripts;
+            hasDied += GameOver;
+            
+            takeDmg += OnIsHit;
         }
         
         void Update()
         {
             Attack();
+            Die();
             
-            if (_playerStats.GetCurrentHealth() == 0)
+            if (IsHit && _playerStats.GetCurrentHealth() > 0)
             {
-                Debug.Log("Player is dead");
-                
+                takeDmg?.Invoke(10);
+            }
+        }
+
+        private void Die()
+        {
+            if (_playerStats.GetCurrentHealth() < 1)
+            {
                 IsDead = true;
                 hasDied?.Invoke();
             }
@@ -67,6 +82,19 @@ namespace Player
             animator.SetBool(PlayerAnimHash.attackHash, value);
         }
 
+        private void OnIsHit(int dmg)
+        {
+            animator.SetTrigger(PlayerAnimHash.isHitHash);
+            _playerStats.TakeDamage(dmg);
+            IsHit = false;
+            _audioManager.PlayOnce("UGHSound");
+        }
+
+        private void GameOver()
+        {
+            GameOverManager.gameOver = true;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("EnemyHands"))
@@ -74,7 +102,7 @@ namespace Player
                 if (EnemyCombat.EnemyIsAttacking)
                 {
                     Debug.Log("Player was hit by enemy hands");
-                    _playerStats.TakeDamage(10);
+                    takeDmg?.Invoke(10);
                 }
             }
 
@@ -83,7 +111,7 @@ namespace Player
                 if (EnemyCombat.AttackingWithFoot && EnemyCombat.EnemyIsAttacking)
                 {
                     Debug.Log("Player was hit by enemy foot");
-                    _playerStats.TakeDamage(20);
+                    takeDmg?.Invoke(20);
                 }
             }
         }

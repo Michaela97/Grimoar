@@ -11,6 +11,7 @@ namespace Player
 
         public PlayerHealthBar healthBar;
         
+        
         private void Start()
         {
             healthBar = gameObject.AddComponent<PlayerHealthBar>();
@@ -19,6 +20,7 @@ namespace Player
        
             healthBar.SetMaxHealth(currentHealth);
             healthBar.SetHealth(currentHealth);
+            
         }
 
         public void TakeDamage(int damage)

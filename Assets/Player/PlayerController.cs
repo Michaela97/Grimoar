@@ -73,7 +73,6 @@ namespace Player
             if (other.gameObject.CompareTag("Ground"))
             {
                 _isGrounded = true;
-                Debug.Log("Trigger with ground detected");
             }
         }
     }

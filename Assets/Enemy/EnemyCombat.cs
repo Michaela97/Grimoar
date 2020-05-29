@@ -31,8 +31,7 @@ namespace Enemy
             _agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             _audioManager = FindObjectOfType<AudioManager>();
-
-            //GetRandomAttack();
+            
             StartCoroutine(GetRandomAttack());
         }
 
@@ -42,6 +41,13 @@ namespace Enemy
         {
             FollowPlayer();
             IsDead(); //disable script if its dead
+            
+            if (PlayerCombat.IsDead)
+            {
+                AttackAction -= PerformAttack;
+                AttackAction += StopAttack;
+            }
+            
             AttackAction?.Invoke();
         }
 
