@@ -11,3 +11,15 @@ list of assets :
 - Potions
 - Female Warrior (Player)
 
+
+list of sounds :
+
+ - FootSteps (asset store)
+ - Gorilla roar (youtube)
+ - Fire sound (youtube)
+ - UGH (pain) sound (youtube)
+ - Wasted sound (GTA)
+ - Skellige (Witcher 3)
+
+
+
