@@ -62,7 +62,7 @@ namespace Player
             {
                 var input = Input.GetMouseButton(0);
                 IsAttacking = input;
-                SetAttackingAnimation(IsAttacking); 
+                SetAttackingAnimation(IsAttacking);
             }
         }
         

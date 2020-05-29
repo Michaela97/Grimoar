@@ -59,9 +59,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\AgentRandomMovement.cs" />
-     <Compile Include="Assets\Arrow\ArrowSpawner.cs" />
+     <Compile Include="Assets\ArrowTrap\ArrowSpawner.cs" />
      <Compile Include="Assets\AudioManager.cs" />
      <Compile Include="Assets\Dragon\DragonController.cs" />
+     <Compile Include="Assets\Dragon\RandomMovement.cs" />
      <Compile Include="Assets\Enemy\EnemyAnimHash.cs" />
      <Compile Include="Assets\Enemy\EnemyCombat.cs" />
      <Compile Include="Assets\Enemy\EnemyStats.cs" />
@@ -115,7 +116,6 @@
      <Compile Include="Assets\PlayerManager.cs" />
      <Compile Include="Assets\Potions\PotionController.cs" />
      <Compile Include="Assets\Potions\PotionSpawner.cs" />
-     <Compile Include="Assets\Rabbits\Demo\Scripts\AnimatorParamatersChange.cs" />
      <Compile Include="Assets\Rabbits\RabitController.cs" />
      <Compile Include="Assets\Sound.cs" />
      <None Include="Assets\Enviroment\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\Tonemapper.shader" />
