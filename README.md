@@ -21,5 +21,6 @@ list of sounds :
  - Wasted sound (GTA)
  - Skellige (Witcher 3)
 
-
+![](https://github.com/Michaela97/Grimoar/blob/master/game%20pictures/Grimoar-figt.PNG)
+![](https://github.com/Michaela97/Grimoar/blob/master/game%20pictures/Grimoar-dragon.PNG)
 
