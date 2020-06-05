@@ -15,6 +15,6 @@ public class PlayerManager : MonoBehaviour
     }
 
     #endregion
-    // Start is called before the first frame update
+    
     public GameObject player;
 }

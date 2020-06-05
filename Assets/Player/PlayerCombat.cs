@@ -53,6 +53,7 @@ namespace Player
             {
                 IsDead = true;
                 hasDied?.Invoke();
+                _audioManager.Stop("PlayerFootSteps");
             }
         }
 

@@ -205,7 +205,7 @@
         <e p="HealthBar" t="Include">
           <e p="PlayerHealthBar.cs" t="Include" />
         </e>
-        <e p="MainMenu.cs" t="Include" />
+        <e p="MainMenuManager.cs" t="Include" />
         <e p="Player" t="Include">
           <e p="MouseLook.cs" t="Include" />
           <e p="PlayerAnimHash.cs" t="Include" />
@@ -218,7 +218,9 @@
           <e p="PotionController.cs" t="Include" />
           <e p="PotionSpawner.cs" t="Include" />
         </e>
+        <e p="QuitGameManager.cs" t="Include" />
         <e p="Rabbits" t="Include">
+          <e p="RabbitSpawner.cs" t="Include" />
           <e p="RabitController.cs" t="Include" />
         </e>
         <e p="Sound.cs" t="Include" />

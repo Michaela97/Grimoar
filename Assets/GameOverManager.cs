@@ -14,7 +14,12 @@ public class GameOverManager : MonoBehaviour
     private Text gameOverText;
     public static bool gameOver;
     private AudioManager _audioManager;
-    
+
+    private void Awake()
+    {
+        gameOver = false;
+    }
+
     private void Start()
     {
         _audioManager = FindObjectOfType<AudioManager>();
@@ -29,7 +34,6 @@ public class GameOverManager : MonoBehaviour
             _audioManager.PlayOnce("WastedSound");
             GameOver(true);
             StartCoroutine(GoToMenu());
-            gameOver = false;
             enabled = false;
         }
     }

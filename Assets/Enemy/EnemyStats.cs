@@ -21,7 +21,15 @@ namespace Enemy
 
             _takeDamageDelegate += SetHitAnimation;
             _takeDamageDelegate += TakeDamage;
-            _takeDamageDelegate += Die;
+            // _takeDamageDelegate += Die;
+        }
+
+        private void Update()
+        {
+            if (health <= 0)
+            {
+                _takeDamageDelegate += Die;
+            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -48,13 +56,14 @@ namespace Enemy
 
         private void Die()
         {
-            if (health == 0)
-            {
+            // if (health == 0)
+            // {
                 EnemyIsDead = true;
-                animator.SetBool(EnemyAnimHash.IsDeadHash, true);
+                //animator.SetBool(EnemyAnimHash.IsDeadHash, true);
+                animator.SetTrigger(EnemyAnimHash.IsDeadHash);
                 Destroy(gameObject, 3);
                 enabled = false;
-            }
+            //}
         }
     }
 }

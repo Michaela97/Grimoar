@@ -107,7 +107,7 @@
      <Compile Include="Assets\Enviroment\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
      <Compile Include="Assets\GameOverManager.cs" />
      <Compile Include="Assets\HealthBar\PlayerHealthBar.cs" />
-     <Compile Include="Assets\MainMenu.cs" />
+     <Compile Include="Assets\MainMenuManager.cs" />
      <Compile Include="Assets\Player\MouseLook.cs" />
      <Compile Include="Assets\Player\PlayerAnimHash.cs" />
      <Compile Include="Assets\Player\PlayerCombat.cs" />
@@ -116,6 +116,8 @@
      <Compile Include="Assets\PlayerManager.cs" />
      <Compile Include="Assets\Potions\PotionController.cs" />
      <Compile Include="Assets\Potions\PotionSpawner.cs" />
+     <Compile Include="Assets\QuitGameManager.cs" />
+     <Compile Include="Assets\Rabbits\RabbitSpawner.cs" />
      <Compile Include="Assets\Rabbits\RabitController.cs" />
      <Compile Include="Assets\Sound.cs" />
      <None Include="Assets\Enviroment\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\Tonemapper.shader" />

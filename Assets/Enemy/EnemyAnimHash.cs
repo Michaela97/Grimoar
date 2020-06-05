@@ -10,7 +10,7 @@ namespace Enemy
         public static int ComboKickHash = Animator.StringToHash("ComboKick");   
         
         public static int IsHitHash = Animator.StringToHash("IsHit");  
-        public static int IsDeadHash = Animator.StringToHash("IsDead");
+        public static int IsDeadHash = Animator.StringToHash("Dead");
         
         public static int RunningHash = Animator.StringToHash("IsRunning");
         

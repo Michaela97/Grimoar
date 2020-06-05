@@ -75,6 +75,7 @@ namespace Enemy
                     AttackAction -= FaceTarget;
                     AttackAction += StopAttack;
                 }
+                SetRunningAnimation(false, _agent.velocity.magnitude);
             }
         }
 
@@ -90,7 +91,6 @@ namespace Enemy
         private void StopAttack()
         {
             EnemyIsAttacking = false;
-            SetRunningAnimation(false, _agent.velocity.magnitude);
             SetAttackingAnimation(false);
         }
 
@@ -114,6 +114,7 @@ namespace Enemy
                 _audioManager.Stop("EnemyFootSteps");
             }
 
+            
             animator.SetFloat(EnemyAnimHash.RunningHash, magnitude);
         }
 

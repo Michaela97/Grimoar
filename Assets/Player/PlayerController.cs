@@ -63,12 +63,13 @@ namespace Player
         {
             if (_isGrounded && Input.GetButtonDown("Jump"))
             {
-                controller.Move(Vector3.up * jumpHigh * Time.deltaTime);
+                var jump = transform.up *  jumpHigh;
+                controller.Move(jump * Time.deltaTime);
                 _isGrounded = false;
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.CompareTag("Ground"))
             {
