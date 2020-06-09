@@ -17,6 +17,7 @@ ScriptsOnlyBuild:
     - PotionController
     - PotionSpawner
     - QuitGameManager
+    - RabbitSpawner
     - RabitController
     - RandomMovement
     - UnityStandardAssets.ImageEffects.Bloom
@@ -113,33 +114,35 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12134}
     - Class: 114
-      Script: {instanceID: 12170}
+      Script: {instanceID: 12154}
     - Class: 114
-      Script: {instanceID: 12202}
+      Script: {instanceID: 12172}
     - Class: 114
-      Script: {instanceID: 12222}
+      Script: {instanceID: 12204}
     - Class: 114
-      Script: {instanceID: 12252}
+      Script: {instanceID: 12224}
     - Class: 114
-      Script: {instanceID: 12388}
+      Script: {instanceID: 12254}
     - Class: 114
-      Script: {instanceID: 12534}
+      Script: {instanceID: 12390}
     - Class: 114
-      Script: {instanceID: 12720}
+      Script: {instanceID: 12536}
     - Class: 114
-      Script: {instanceID: 12766}
+      Script: {instanceID: 12722}
     - Class: 114
-      Script: {instanceID: 12870}
+      Script: {instanceID: 12768}
     - Class: 114
-      Script: {instanceID: 13028}
+      Script: {instanceID: 12872}
     - Class: 114
-      Script: {instanceID: 13066}
+      Script: {instanceID: 13030}
     - Class: 114
-      Script: {instanceID: 13112}
+      Script: {instanceID: 13068}
     - Class: 114
-      Script: {instanceID: 13254}
+      Script: {instanceID: 13114}
     - Class: 114
-      Script: {instanceID: 13286}
+      Script: {instanceID: 13256}
+    - Class: 114
+      Script: {instanceID: 13288}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 124
@@ -216,13 +219,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11934}
     - Class: 114
-      Script: {instanceID: 12342}
+      Script: {instanceID: 12344}
     - Class: 114
-      Script: {instanceID: 12728}
+      Script: {instanceID: 12730}
     - Class: 114
-      Script: {instanceID: 12870}
+      Script: {instanceID: 12872}
     - Class: 114
-      Script: {instanceID: 13254}
+      Script: {instanceID: 13256}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -576,6 +579,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ScrollRect
+  - hash:
+      serializedVersion: 2
+      Hash: 02539e06c1b4caff70904d7569a65d75
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RabbitSpawner
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb

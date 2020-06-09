@@ -26,6 +26,7 @@ public class RabitController : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
+        _timer = 5;
     }
 
     private void Update()

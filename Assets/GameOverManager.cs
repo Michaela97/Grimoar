@@ -38,6 +38,7 @@ public class GameOverManager : MonoBehaviour
         }
     }
 
+    //this is setting Game Over image and text through scene 
     private void GameOver(bool value)
     {
         gameOverBackground.gameObject.SetActive(value);

@@ -11,6 +11,7 @@ namespace Enemy
         public float health = 20;
         public Animator animator;
         public static bool EnemyIsDead;
+
         private delegate void TakeDamageDelegate();
 
         private TakeDamageDelegate _takeDamageDelegate;
@@ -21,7 +22,6 @@ namespace Enemy
 
             _takeDamageDelegate += SetHitAnimation;
             _takeDamageDelegate += TakeDamage;
-            // _takeDamageDelegate += Die;
         }
 
         private void Update()
@@ -56,14 +56,11 @@ namespace Enemy
 
         private void Die()
         {
-            // if (health == 0)
-            // {
-                EnemyIsDead = true;
-                //animator.SetBool(EnemyAnimHash.IsDeadHash, true);
-                animator.SetTrigger(EnemyAnimHash.IsDeadHash);
-                Destroy(gameObject, 3);
-                enabled = false;
-            //}
+            EnemyIsDead = true;
+
+            animator.SetTrigger(EnemyAnimHash.IsDeadHash);
+            Destroy(gameObject, 3);
+            enabled = false;
         }
     }
 }

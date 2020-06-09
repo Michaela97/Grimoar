@@ -17,10 +17,8 @@ public class ArrowSpawner : MonoBehaviour
 
     void Update()
     {
-        // Bit shift the index of the layer (8) to get a bit mask
-        int layerMask = 1 << 8;
 
-        // This would cast rays only against colliders in layer 8.
+        int layerMask = 1 << 8;
         // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
         layerMask = ~layerMask;
         
@@ -30,8 +28,7 @@ public class ArrowSpawner : MonoBehaviour
 
         if (distance <= lookRadius)
         {
-
-            //hit is struct so use 'out' to pass by reference, instead of default pass by copy 
+            
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
             {
                 Debug.DrawRay(transform.position, _target.position * hit.distance, Color.yellow);
@@ -45,7 +42,7 @@ public class ArrowSpawner : MonoBehaviour
         }
     }
 
-    //TODO
+    //TODO - this will be shooting arrows (next version)
     private GameObject SpawnArrow()
     {
         var position = new Vector3(-10f, 5.8f, -19f);

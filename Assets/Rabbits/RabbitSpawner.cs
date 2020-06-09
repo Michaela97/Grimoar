@@ -12,7 +12,7 @@ public class RabbitSpawner : MonoBehaviour
 
     private void SpawnRabbit()
     {
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 5; i++)
         {
             GameObject pot = Instantiate(rabbit);
             GetRandomPosition(pot);
@@ -21,8 +21,8 @@ public class RabbitSpawner : MonoBehaviour
     
     private void GetRandomPosition(GameObject gameObject)
     {
-        Vector3 position = new Vector3(GetRandomNumber(), 0.23f, GetRandomNumber());
-        gameObject.transform.localPosition = position;
+        Vector3 position = new Vector3(GetRandomNumber()+50f, 0.23f, GetRandomNumber()+25f);
+        gameObject.transform.position = position;
     }
     
     private float GetRandomNumber()
