@@ -23,4 +23,5 @@ list of sounds :
 
 ![](https://github.com/Michaela97/Grimoar/blob/master/game%20pictures/Grimoar-figt.PNG)
 ![](https://github.com/Michaela97/Grimoar/blob/master/game%20pictures/Grimoar-dragon.PNG)
+![](https://github.com/Michaela97/Grimoar/blob/master/game%20pictures/Grimoar - GameOver screen.PNG)
 
